@@ -41,13 +41,21 @@ complete, otherwise false.
     e.g., Run tomcat image with a customized landing page, and should be accessible at:
     http://localhost:8080/
 
-Bonus Question (Non Mandatory)
-
-6. Given the following snippet of nginx server configuration:
-    server {
-        listen 80 default_server;
-        root /var/www/html;
-        server_name *.senpiper.com senpiper.com;
-        }
-    Write a location block for requests “/api” that will include the proxied server:
-    “http://localhost:8000/welcome/home”.
+    Solution: Steps for creating and publishing a docker image to docker repository
+        
+        1. creating folder for tomcat server and creating a customer index.html
+            mkdir tomcat_server
+            cd tomcat_server
+            mkdir webapp
+            cd webapp
+            echo "<html><body><h1>Welcome to Leela Custom Tomcat Page</h1></body></html>" > webapps/index.html
+        2. creating Dockerfile and using Dockerfile creating docker image and running the same in port 8080
+            docker build -t tomcat_server .
+            docker run -d -p 8080:8080 tomcat_server
+    ![alt text](image.png)
+        
+        3. Publishing the image to dockerhub by logging into dockerhub and pushing the image as follows
+            docker login -u leelavsatish -p ${{ secrets.DOCKER_PASS }}
+            docker tag tomcat_server:latest leelavsatish/tomcat_server:latest
+            docker push leelavsatish/tomcat_server:latest
+    ![alt text](image-1.png)
