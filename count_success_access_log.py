@@ -12,7 +12,6 @@ def count_200_status(log_file):
 
     return count
 
-# Example usage
 log_file = "access.log" 
 success_count = count_200_status(log_file)
 
